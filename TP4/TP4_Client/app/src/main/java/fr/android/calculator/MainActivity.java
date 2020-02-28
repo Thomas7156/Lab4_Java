@@ -1,6 +1,7 @@
 package fr.android.calculator;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -28,6 +29,14 @@ public class MainActivity extends AppCompatActivity {
     public TextView operation;
     public TextView resultat;
     public Socket s;
+    int cpt;
+    float num1;
+    float num2;
+    float calcul;
+    String tamp;
+    String running;
+    String result;
+    boolean ops;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +71,14 @@ public class MainActivity extends AppCompatActivity {
         Equal.setOnClickListener(buttonEqualAsync());
 
         buttonsGroup.addView(Equal);
+        cpt = 0;
+        num1 = 0;
+        num2 = 0;
+        calcul = 0;
+        tamp = "";
+        running = null;
+        result = null;
+        ops = false;
     }
 
     //Version Async
@@ -75,14 +92,14 @@ public class MainActivity extends AppCompatActivity {
 
     private class functEqual extends AsyncTask<String, String, String> {
         protected String doInBackground(String... rslt) {
-            int cpt = 0;
-            float num1 = 0;
-            float num2 = 0;
-            float calcul = 0;
-            String tamp = "";
-            String running = rslt[0];
-            String result = null;
-            boolean ops = false;
+            cpt = 0;
+            num1 = 0;
+            num2 = 0;
+            calcul = 0;
+            tamp = "";
+            running = rslt[0];
+            result = null;
+            ops = false;
 
             if(running.isEmpty()) {
                 ops = true;
@@ -131,7 +148,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-
             return result;
         }
 
@@ -145,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
 
         protected void onPostExecute(String result) {
             resultat.setText(result);
+            result=null;
         }
     }
 
@@ -236,6 +253,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         this.operation.setText(running);
+    }
+    public boolean menu (MenuItem item)
+    {
+        Intent intent = new Intent(this,LastOperation.class);
+        intent.putExtra("operation",running);
+        intent.putExtra("resultat",result);
+        startActivity(intent);
+        return (true);
     }
 }
 
