@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Calculator_TP4</string>
+    <string name="action_settings">Menu</string>
+    <string name="equal">=</string>
+    <string name="button_url">Ouvrir la page web</string>
+    <string name="url_web">http://</string>
+    <string name="url_hint">Rentrez un url</string>
+    <string name="button_calculator">Retour à la calculatrice</string>
+</resources>
